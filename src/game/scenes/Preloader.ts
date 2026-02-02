@@ -30,7 +30,7 @@ export class Preloader extends Scene
 
     create ()
     {
-        // Create player animations
+        // Create player animations - classic 2-frame walk like real SNES games
         this.anims.create({
             key: 'idle',
             frames: [{ key: 'player', frame: 0 }],
@@ -41,11 +41,11 @@ export class Preloader extends Scene
         this.anims.create({
             key: 'walk',
             frames: this.anims.generateFrameNumbers('player', { start: 1, end: 2 }),
-            frameRate: 10,
+            frameRate: 6,
             repeat: -1
         });
 
-        // Go straight to game (skip menu for now)
+        // Go straight to game
         this.scene.start('Game');
     }
 }
