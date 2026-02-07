@@ -21,28 +21,91 @@ export class Preloader extends Scene
     {
         this.load.setPath('assets');
 
-        // Load the player sprite sheet (3 frames: idle, walk1, walk2 - each 64x64)
-        this.load.spritesheet('player', 'sprites/spritesheet01.png', {
-            frameWidth: 64,
-            frameHeight: 64
+        // Load the player idle sprite (96x96)
+        this.load.spritesheet('player-idle', 'sprites/idle-Sheet.png', {
+            frameWidth: 96,
+            frameHeight: 96
+        });
+
+        // Load the player walk sprite sheet (96x96 each)
+        this.load.spritesheet('player-walk', 'sprites/walk-Sheet.png', {
+            frameWidth: 96,
+            frameHeight: 96
+        });
+
+        // Load the player small attack sprite sheet (2 frames, 96x96 - faster attack)
+        this.load.spritesheet('player-small-attack', 'sprites/small_attack-Sheet.png', {
+            frameWidth: 96,
+            frameHeight: 96
+        });
+
+        // Load the player big attack sprite sheet (3 frames, 96x96 - slower attack)
+        this.load.spritesheet('player-big-attack', 'sprites/big_attack-Sheet.png', {
+            frameWidth: 96,
+            frameHeight: 96
+        });
+
+        // Load the player in-air sprite sheet (96x96)
+        this.load.spritesheet('player-air', 'sprites/in_air-Sheet.png', {
+            frameWidth: 96,
+            frameHeight: 96
+        });
+
+        // Load the player air attack sprite sheet (2 frames, 96x96)
+        this.load.spritesheet('player-air-attack', 'sprites/attack_air-Sheet.png', {
+            frameWidth: 96,
+            frameHeight: 96
         });
     }
 
     create ()
     {
-        // Create player animations - classic 2-frame walk like real SNES games
+        // Create player idle animation
         this.anims.create({
             key: 'idle',
-            frames: [{ key: 'player', frame: 0 }],
+            frames: this.anims.generateFrameNumbers('player-idle', { start: 0, end: 0 }),
             frameRate: 1,
             repeat: -1
         });
 
+        // Create player walk animation
         this.anims.create({
             key: 'walk',
-            frames: this.anims.generateFrameNumbers('player', { start: 1, end: 2 }),
-            frameRate: 6,
+            frames: this.anims.generateFrameNumbers('player-walk', { start: 0, end: 7 }),
+            frameRate: 10,
             repeat: -1
+        });
+
+        // Create player small attack animation (2 frames, fast)
+        this.anims.create({
+            key: 'small-attack',
+            frames: this.anims.generateFrameNumbers('player-small-attack', { start: 0, end: 1 }),
+            frameRate: 16,
+            repeat: 0
+        });
+
+        // Create player big attack animation (3 frames, slower)
+        this.anims.create({
+            key: 'big-attack',
+            frames: this.anims.generateFrameNumbers('player-big-attack', { start: 0, end: 2 }),
+            frameRate: 10,
+            repeat: 0
+        });
+
+        // Create player in-air animation
+        this.anims.create({
+            key: 'in-air',
+            frames: this.anims.generateFrameNumbers('player-air', { start: 0, end: 0 }),
+            frameRate: 1,
+            repeat: -1
+        });
+
+        // Create player air attack animation (2 frames, fast)
+        this.anims.create({
+            key: 'air-attack',
+            frames: this.anims.generateFrameNumbers('player-air-attack', { start: 0, end: 1 }),
+            frameRate: 16,
+            repeat: 0
         });
 
         // Go straight to game
